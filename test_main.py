@@ -23,3 +23,19 @@ def test_homework():
         print(result_text)
         sleep(3)
 
+
+def test_class_work():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False, slow_mo=500)
+        context = browser.new_context()
+        page = context.new_page()
+        page.goto('https://canvusapps.com/signup')
+        page.locator('#user_name').fill("Michal")
+        page.locator('#user_email').fill(fake.email())
+        user_password=fake.password(length=8)
+        page.locator('#user_password').fill(user_password)
+        page.locator('#user_password_confirmation').fill(user_password)
+        page.locator('#company_name').fill(fake.company())
+        page.get_by_role('button',name='Sign up').click()
+
+
